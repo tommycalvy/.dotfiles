@@ -6,6 +6,7 @@
    ...
 }@inputs:
   let
+    tlcvim = (import ./nvim { inherit inputs; }).homeModules.default;
     configuration = { pkgs, ... }: {
       # List packages installed in system profile. To search by name, run:
       # $ nix-env -qaP | grep wget
@@ -52,16 +53,6 @@
   {
     # Build darwin flake using:
     # $ darwin-rebuild build --flake .#Tommys-MacBook-Pro
-    darwinConfigurations."Tommys-MacBook-Pro" = nix-darwin.lib.darwinSystem {
-      modules = [ 
-        configuration
-        home-manager.darwinModules.home-manager
-        {
-	  home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.tommycalvy = import ./home.nix;
-	}
-      ];
-    };
-  };
+    darwinConfigurations."Tommys-MacBook-Pro" = import ./home-manager { inherit inputs configuration tlcvim; };
+  }
 

@@ -1,9 +1,11 @@
-{ config, pkgs, nvim, ... }:
+{ config, pkgs, tlcvim, ... }:
 
 {
-  imports = [ nvim.homeModule ];
-  nvim.enable = true;
-  nvim.packageNames = [ "nvim" ];
+  imports = [ tlcvim ];
+  tlcvim = {
+    enable = true;
+    packageNames = [ "tlcvim" "testvim" "nightlytest" ];
+  };
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.

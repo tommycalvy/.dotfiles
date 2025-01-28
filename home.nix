@@ -1,15 +1,14 @@
-{ config, pkgs, nvim, ... }:
+{ config, pkgs, inputs, tlcvim, ... }:
 
 {
-  tlcvim = (import ./nvim { inherit inputs; }).homeModules.default;
   imports = [ 
     tlcvim
   ];
 
   tlcvim = {
     enable = true;
-    packageNames = [ "tlcvim" ];
-  }
+    packageNames = [ "tlcvim" "testvim" "nightlytest" ];
+  };
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -91,7 +90,7 @@
   #  /etc/profiles/per-user/tommycalvy/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-    EDITOR = "nvim";
+    EDITOR = "tlcvim";
   };
 
   # Let Home Manager install and manage itself.
