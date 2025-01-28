@@ -21,6 +21,8 @@
   # release notes.
   home.stateVersion = "24.11"; # Please read the comment before changing.
 
+  # programs.vim.enable = true;
+
   programs.wezterm = {
     enable = true;
     enableZshIntegration = true;
