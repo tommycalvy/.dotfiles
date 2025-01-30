@@ -6,7 +6,7 @@
 	...
 }@inputs:
 let
-	tlcvim = (import ./nvim { inherit inputs; }).homeModules.default;
+    tlcvim = (import ./nvim { inherit inputs; }).homeModules.default;
 	configuration = { pkgs, ... }: {
 
 		# Necessary for using flakes on this system.

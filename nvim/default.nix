@@ -9,7 +9,7 @@
   # will not apply to module imports
   # as that will have your system values
   extra_pkg_config = {
-    # allowUnfree = true;
+   # allowUnfree = true;
   };
   dependencyOverlays = /* (import ./overlays inputs) ++ */ [
     # see :help nixCats.flake.outputs.overlays
@@ -30,19 +30,86 @@
 
   categoryDefinitions = { pkgs, settings, categories, extra, name, mkNvimPlugin, ... }@packageDef: {
 
-    lspsAndRuntimeDeps = {
-      general = with pkgs; [
+    lspsAndRuntimeDeps = with pkgs; {
+      general = [
+		universal-ctags
+        ripgrep
+        fd
+      ];
+	  rust = [
+        rustc
+        rustfmt
+        lldb
+        cargo
+        clippy
+        rust-analyzer
+      ];
+      neonixdev = [
+        nix-doc
+        nil
+        lua-language-server
+        nixd
+        nixfmt-rfc-style
       ];
     };
 
-    startupPlugins = {
+    startupPlugins = with pkgs.vimPlugins; {
       general = [
+		lze
+		vim-repeat
+		plenary-nvim
       ];
+	  rust = [
+	    rustaceanvim
+	  ];
     };
 
     optionalPlugins = {
       gitPlugins = with pkgs.neovimPlugins; [ ];
-      general = with pkgs.vimPlugins; [ ];
+      general = with pkgs.vimPlugins; { 
+		cmp = [
+		  nvim-cmp
+		  luasnip
+		  friendly-snippets
+		  cmp_luasnip
+		  cmp-buffer
+		  cmp-path
+		  cmp-nvim-lua
+		  cmp-nvim-lsp
+		  cmp-cmdline
+		  cmp-nvim-lsp-signature-help
+		  cmp-cmdline-history
+		  lspkind-nvim
+		];
+		treesitter = [
+		  nvim-treesitter-textobjects
+		  nvim-treesitter.withAllGrammars
+		  # This is for if you only want some of the grammars
+		  # (nvim-treesitter.withPlugins (
+		  #   plugins: with plugins; [
+		  #     nix
+		  #     lua
+		  #   ]
+		  # ))
+        ];
+		telescope = [
+		  telescope-fzf-native-nvim
+		  telescope-ui-select-nvim
+		  telescope-nvim
+		];
+		always = [
+            nvim-lspconfig
+            lualine-nvim
+            gitsigns-nvim
+            vim-sleuth
+            vim-fugitive
+            vim-rhubarb
+            nvim-surround
+          ];
+	  };
+	  neonixdev = with pkgs.vimPlugins; [
+		lazydev-nvim
+	  ];
     };
 
     # shared libraries to be added to LD_LIBRARY_PATH
@@ -93,15 +160,8 @@
     general = true;
     test = true;
     lspDebugMode = false;
-    example = {
-      youCan = "add more than just booleans";
-      toThisSet = [
-        "and the contents of this categories set"
-        "will be accessible to your lua with"
-        "nixCats('path.to.value')"
-        "see :help nixCats"
-      ];
-    };
+    rust = true;
+	neonixdev = true;
   };
 
   packageDefinitions = {
@@ -113,7 +173,11 @@
       };
       categories = tlcvim_categories args // {
       };
-      extra = {};
+	  extra = {
+		nixdExtras = {
+		  nixpkgs = nixpkgs;
+		};
+	  };
     };
     nightlytest = { pkgs, ... }@args: {
       settings = tlcvim_settings args // {
@@ -136,7 +200,11 @@
         test = true;
         lspDebugMode = true;
       };
-      extra = {};
+	  extra = {
+		nixdExtras = {
+		  nixpkgs = nixpkgs;
+		};
+	  };
     };
   };
   # In this section, the main thing you will need to do is change the default package name

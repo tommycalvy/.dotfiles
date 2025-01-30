@@ -1,2 +1,5 @@
-require("tommycalvy")
+require('nixCatsUtils').setup {
+  non_nix_value = true,
+}
 
+require("tommycalvy")
