@@ -102,9 +102,9 @@
             lualine-nvim
             gitsigns-nvim
             vim-sleuth
-            vim-fugitive
             vim-rhubarb
             nvim-surround
+			wezterm-nvim
           ];
 	  };
 	  neonixdev = with pkgs.vimPlugins; [
