@@ -149,18 +149,18 @@ require('lze').load {
       vim.cmd([[hi GitSignsDelete guifg=#fa2525]])
     end,
   },
-  {
-    "wezterm.nvim",
-    for_cat = 'general.always',
-    event = "DeferredUIEnter",
-	keys = {
-		{"<C-a>-", function() return require('wezterm').split_pane.vertical() end, mode = {"n"}, desc = '[W]ezterm split plane vertically', },
-		{"<C-a>\\", function() return require('wezterm').split_pane.horizontal() end, mode = {"n"}, desc = '[W]ezterm split plane horizontally', },
-	},
-	after = function()
-		require('wezterm').setup({
-			opts = { create_commands = true }
-		})
-	end,
-  }
+--  {
+--    "wezterm.nvim",
+--    for_cat = 'general.always',
+--    event = "DeferredUIEnter",
+--	keys = {
+--		{"<C-a>-", function() return require('wezterm').split_pane.vertical() end, mode = {"n"}, desc = '[W]ezterm split plane vertically', },
+--		{"<C-a>\\", function() return require('wezterm').split_pane.horizontal() end, mode = {"n"}, desc = '[W]ezterm split plane horizontally', },
+--	},
+--	after = function()
+--		require('wezterm').setup({
+--			opts = { create_commands = true }
+--		})
+--	end,
+--  }
 }

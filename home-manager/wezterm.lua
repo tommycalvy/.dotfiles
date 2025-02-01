@@ -1,5 +1,7 @@
 local config = wezterm.config_builder()
 
+local act = wezterm.action
+
 config.color_scheme = 'Orthodox Scheme'
 
 config.window_background_image = '/Users/tommycalvy/Documents/thomas_cole_the_voyage_of_life_1842.jpg'
@@ -37,4 +39,58 @@ config.color_schemes = {
 	    	},
 	},
 }
+
+-- timeout_milliseconds defaults to 1000 and can be omitted
+-- config.leader = { key = 'a', mods = 'CTRL', timeout_milliseconds = 1000 }
+config.keys = {
+  {
+	  key = 'a',
+	  mods = 'CTRL',
+	  action = act.ActivateKeyTable {
+		  name = 'split_or_resize_pane',
+		  one_shot = false,
+		  until_unknown = true,
+		  timeout_milliseconds = 1000,
+	  },
+  },
+  {
+    key = 'h',
+    mods = 'CTRL',
+    action = act.ActivatePaneDirection 'Left',
+  },
+  {
+    key = 'l',
+    mods = 'CTRL',
+    action = act.ActivatePaneDirection 'Right',
+  },
+  {
+    key = 'k',
+    mods = 'CTRL',
+    action = act.ActivatePaneDirection 'Up',
+  },
+  {
+    key = 'j',
+    mods = 'CTRL',
+    action = act.ActivatePaneDirection 'Down',
+  },
+  -- Send "CTRL-A" to the terminal when pressing CTRL-A, CTRL-A
+  {
+    key = 'a',
+    mods = 'LEADER|CTRL',
+    action = act.SendKey { key = 'a', mods = 'CTRL' },
+  },
+
+}
+
+config.key_tables = {
+	split_or_resize_pane = {
+	  { key = '\\', action = act.SplitHorizontal { domain = 'CurrentPaneDomain' } },
+	  { key = '-', action = act.SplitVertical { domain = 'CurrentPaneDomain' } },
+	  { key = 'h', action = act.AdjustPaneSize { 'Left', 1 } },
+	  { key = 'l', action = act.AdjustPaneSize { 'Right', 1 } },
+	  { key = 'k', action = act.AdjustPaneSize { 'Up', 1 } },
+	  { key = 'j', action = act.AdjustPaneSize { 'Down', 1 } },
+	},
+}
+
 return config

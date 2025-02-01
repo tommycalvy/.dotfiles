@@ -104,7 +104,7 @@
             vim-sleuth
             vim-rhubarb
             nvim-surround
-			wezterm-nvim
+			# wezterm-nvim
           ];
 	  };
 	  neonixdev = with pkgs.vimPlugins; [
