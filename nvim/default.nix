@@ -43,6 +43,7 @@
         cargo
         clippy
         rust-analyzer
+		vscode-extensions.vadimcn.vscode-lldb.adapter	
       ];
       neonixdev = [
         nix-doc
@@ -105,6 +106,8 @@
             vim-rhubarb
             nvim-surround
 			# wezterm-nvim
+			harpoon2
+			nvim-dap
           ];
 	  };
 	  neonixdev = with pkgs.vimPlugins; [

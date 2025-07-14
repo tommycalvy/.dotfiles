@@ -47,7 +47,7 @@ config.keys = {
 	  key = 'a',
 	  mods = 'CTRL',
 	  action = act.ActivateKeyTable {
-		  name = 'split_or_resize_pane',
+		  name = 'modify_pane',
 		  one_shot = false,
 		  until_unknown = true,
 		  timeout_milliseconds = 1000,
@@ -83,13 +83,14 @@ config.keys = {
 }
 
 config.key_tables = {
-	split_or_resize_pane = {
+	modify_pane = {
 	  { key = '\\', action = act.SplitHorizontal { domain = 'CurrentPaneDomain' } },
 	  { key = '-', action = act.SplitVertical { domain = 'CurrentPaneDomain' } },
 	  { key = 'h', action = act.AdjustPaneSize { 'Left', 1 } },
 	  { key = 'l', action = act.AdjustPaneSize { 'Right', 1 } },
 	  { key = 'k', action = act.AdjustPaneSize { 'Up', 1 } },
 	  { key = 'j', action = act.AdjustPaneSize { 'Down', 1 } },
+	  { key = 'q', action = act.CloseCurrentPane { confirm = true } },
 	},
 }
 

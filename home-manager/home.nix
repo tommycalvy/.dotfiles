@@ -1,4 +1,4 @@
-{ config, pkgs, tlcvim, ... }:
+{ config, pkgs, lib, tlcvim, ... }:
 
 {
   imports = [ tlcvim ];
@@ -22,6 +22,18 @@
   home.stateVersion = "24.11"; # Please read the comment before changing.
 
   # programs.vim.enable = true;
+  programs.zsh = {
+    enable = true;
+    enableCompletion = true;
+    autosuggestion.enable = true;
+    syntaxHighlighting.enable = true;
+
+    shellAliases = {
+      ll = "ls -l";
+      update = "sudo darwin-rebuild switch --flake /Users/tommycalvy/.config";
+    };
+    history.size = 10000;
+  };
 
   programs.wezterm = {
     enable = true;
@@ -37,12 +49,51 @@
 
   programs.gh.enable = true;
 
+  programs.helix.enable = true;
+
+  programs.starship = {
+    enable = true;
+    enableBashIntegration = true;
+    enableZshIntegration = true;
+    settings = {
+      add_newline = false;
+      format = lib.concatStrings [
+        "[](#9A348E)"
+        "$username"
+        "[]( fg:#9A348E)"
+        " $directory"
+        "$git_branch"
+        "$git_status"
+        "$character"
+      ];
+
+      username = {
+        show_always = true;
+        style_user = "bg:#9A348E";
+        style_root = "bg:#9A348E";
+        format = "[$user ]($style)";
+        disabled = false;
+      };
+
+      directory = {
+        truncation_length = 3;
+        truncation_symbol = "…/";
+      };
+
+      git_branch = {
+        symbol = "";
+        style = "bright-yellow bold";
+        format = "\([$symbol $branch]($style)\)";
+      };
+
+    };
+  };
+
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
     brave
     rustup
-
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of

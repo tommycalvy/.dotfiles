@@ -1,0 +1,35 @@
+[[language]]
+name = "rust"
+
+[[language]]
+name = "swift"
+
+[[language]]
+name = "javascript"
+
+[[language]]
+name = "typescript"
+
+[[language]]
+name = "bash"
+
+[[language]]
+name = "html"
+
+[[language]]
+name = "kotlin"
+
+[[language]]
+name = "lua"
+
+[[language]]
+name = "nix"
+
+[[language]]
+name = "protobuf"
+
+[language-server.rust-analyzer.config.check]
+command = "clippy"
+
+[language-server.rust-analyzer.config.cargo]
+features = "all"
