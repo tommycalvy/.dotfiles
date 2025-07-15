@@ -35,6 +35,14 @@
     history.size = 10000;
   };
 
+  programs.direnv = {
+    enable = true;
+    enableBashIntegration = true;
+    nix-direnv.enable = true;
+  };
+
+  programs.bash.enable = true;
+
   programs.wezterm = {
     enable = true;
     enableZshIntegration = true;
@@ -57,16 +65,19 @@
     enableZshIntegration = true;
     settings = {
       add_newline = false;
-      format = lib.concatStrings [
-        "[](#9A348E)"
-        "$username"
-        "[]( fg:#9A348E)"
-        " $directory"
-        "$git_branch"
-        "$git_status"
-        "$character"
-      ];
+      format = "[](bg:#9A348E)$username[]( fg:#9A348E) $directory$status$character";
+      
+      right_format = "[](bg: yellow)[$git_branch$git_status]( bg:yellow)[](fg:yellow)";
 
+      character = {
+        success_symbol = "[❯](bold green)";
+        error_symbol = "[❯](bold red)";
+        vimcmd_symbol = "[❯](bold green)";
+        vimcmd_replace_one_symbol = "[❯](bold purple)";
+        vimcmd_replace_symbol = "[❯](bold purple)";
+        vimcmd_visual_symbol = "[❯](bold yellow)";
+      };
+      
       username = {
         show_always = true;
         style_user = "bg:#9A348E";
@@ -79,11 +90,15 @@
         truncation_length = 3;
         truncation_symbol = "…/";
       };
-
+      
       git_branch = {
-        symbol = "";
-        style = "bright-yellow bold";
-        format = "\([$symbol $branch]($style)\)";
+        style = "bg:yellow fg:black bold";
+        format = "[$symbol $branch ]($style)";
+      };
+    
+      git_status = {
+        style = "bg:yellow fg:black bold";
+        format = "[$all_status$ahead_behind ]($style)";
       };
 
     };
