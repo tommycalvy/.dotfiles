@@ -35,11 +35,12 @@
     history.size = 10000;
   };
 
-  programs.direnv = {
-    enable = true;
-    enableBashIntegration = true;
-    nix-direnv.enable = true;
-  };
+  # programs.direnv = {
+    # enable = true;
+    # enableBashIntegration = true;
+    # enableZshIntegration = true;
+    # nix-direnv.enable = true;
+  # };
 
   programs.bash.enable = true;
 
@@ -65,7 +66,7 @@
     enableZshIntegration = true;
     settings = {
       add_newline = false;
-      format = "[](bg:#9A348E)$username[]( fg:#9A348E) $directory$status$character";
+      format = "[](#9A348E)$username[](fg:#9A348E) $directory$status$character";
       
       right_format = "[](bg: yellow)[$git_branch$git_status]( bg:yellow)[](fg:yellow)";
 
@@ -107,8 +108,8 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
-    brave
     rustup
+    jdk
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
