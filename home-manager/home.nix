@@ -19,7 +19,7 @@
   # You should not change this value, even if you update Home Manager. If you do
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
-  home.stateVersion = "24.11"; # Please read the comment before changing.
+  home.stateVersion = "26.05"; # Please read the comment before changing.
 
   # programs.vim.enable = true;
   programs.zsh = {
@@ -52,8 +52,12 @@
 
   programs.git = {
     enable = true;
-    userEmail = "42327902+tommycalvy@users.noreply.github.com";
-    userName = "tommycalvy";
+    settings = {
+      user = {
+        email = "42327902+tommycalvy@users.noreply.github.com";
+        name = "tommycalvy";
+      };
+    };
   };
 
   programs.gh.enable = true;
@@ -108,7 +112,6 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
-    rustup
     jdk
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -156,7 +159,7 @@
   #  /etc/profiles/per-user/tommycalvy/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-    EDITOR = "nvim";
+    EDITOR = "hx";
   };
 
   # Let Home Manager install and manage itself.

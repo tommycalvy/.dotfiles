@@ -19,7 +19,7 @@ let
 
 		# Used for backwards compatibility, please read the changelog before changing.
 		# $ darwin-rebuild changelog
-		system.stateVersion = 5;
+		system.stateVersion = 6;
 
 		# The platform the configuration will be used on.
 		nixpkgs.hostPlatform = "aarch64-darwin";
@@ -29,20 +29,21 @@ let
 			home = "/Users/tommycalvy";
 		};
 
+		services.karabiner-elements.enable = false;
 		# Karabiner-Elements doesn't work with latest version
-		services.karabiner-elements.enable = true;
-		nixpkgs.overlays = [
-			(final: prev: {
-			 karabiner-elements = prev.karabiner-elements.overrideAttrs (old: {
-					 version = "14.13.0";
+		# services.karabiner-elements = {
+  #   	enable = true;
+  #   	package = pkgs.karabiner-elements.overrideAttrs (old: {
+  #     	version = "14.13.0";
 
-					 src = prev.fetchurl {
-					 inherit (old.src) url;
-					 hash = "sha256-gmJwoht/Tfm5qMecmq1N6PSAIfWOqsvuHU8VDJY8bLw=";
-					 };
-					 });
-			 })
-		];
+  #     	src = pkgs.fetchurl {
+  #       	inherit (old.src) url;
+  #       	hash = "sha256-gmJwoht/Tfm5qMecmq1N6PSAIfWOqsvuHU8VDJY8bLw=";
+  #     	};
+
+  #     	dontFixup = true;
+  #   	});
+  # 	};
 
 		security.pam.services.sudo_local.touchIdAuth = true;
 
