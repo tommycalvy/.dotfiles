@@ -35,12 +35,23 @@
     history.size = 10000;
   };
 
-  # programs.direnv = {
-    # enable = true;
-    # enableBashIntegration = true;
-    # enableZshIntegration = true;
-    # nix-direnv.enable = true;
-  # };
+  programs.direnv = {
+    enable = true;
+    enableBashIntegration = true;
+    enableZshIntegration = true;
+    nix-direnv.enable = true;
+    # Globally gitignore the .direnv/ cache nix-direnv creates in each project
+    enableGitIntegration = true;
+    # Hide the wall of "+AR +AS +CC ..." variable names printed on every cd
+    config.global.hide_env_diff = true;
+  };
+
+  # Make `nix develop` / `nix shell` start zsh instead of bash
+  # (`command nix develop` still gives the plain bash version)
+  programs.nix-your-shell = {
+    enable = true;
+    enableZshIntegration = true;
+  };
 
   programs.bash.enable = true;
 
@@ -50,8 +61,17 @@
     extraConfig = builtins.readFile ./wezterm.lua;
   };
 
+  programs.ghostty = {
+    enable = true;
+    # pkgs.ghostty is Linux-only; ghostty-bin is the official macOS .app
+    package = pkgs.ghostty-bin;
+    enableZshIntegration = true;
+  };
+
   programs.git = {
     enable = true;
+    # Global gitignore (~/.config/git/ignore); direnv also adds .direnv/ here
+    ignores = [ "**/.claude/settings.local.json" ];
     settings = {
       user = {
         email = "42327902+tommycalvy@users.noreply.github.com";
@@ -70,7 +90,7 @@
     enableZshIntegration = true;
     settings = {
       add_newline = false;
-      format = "[](#9A348E)$username[](fg:#9A348E) $directory$status$character";
+      format = "[](#9A348E)$username[](fg:#9A348E) $directory$nix_shell$status$character";
       
       right_format = "[](bg: yellow)[$git_branch$git_status]( bg:yellow)[](fg:yellow)";
 
@@ -95,6 +115,12 @@
         truncation_length = 3;
         truncation_symbol = "…/";
       };
+
+      # Nerd Font nix logo while a flake dev shell is active (direnv or nix develop)
+      nix_shell = {
+        format = "[$symbol]($style)";
+        symbol = " ";
+      };
       
       git_branch = {
         style = "bg:yellow fg:black bold";
@@ -106,6 +132,17 @@
         format = "[$all_status$ahead_behind ]($style)";
       };
 
+    };
+  };
+
+  programs.vscodium = {
+    enable = true;
+    profiles.default = {
+      extensions = with pkgs.vscode-extensions; [
+        dracula-theme.theme-dracula
+        vscodevim.vim
+        yzhang.markdown-all-in-one
+      ];
     };
   };
 

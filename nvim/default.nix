@@ -50,7 +50,7 @@
         nil
         lua-language-server
         nixd
-        nixfmt-rfc-style
+        nixfmt
       ];
     };
 
@@ -186,7 +186,7 @@
       settings = tlcvim_settings args // {
         wrapRc = false;
         aliases = [ "tvim" ];
-        neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.system}.neovim;
+        neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.neovim;
       };
       categories = tlcvim_categories args // {
         test = true;

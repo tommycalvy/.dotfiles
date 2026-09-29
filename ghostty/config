@@ -1,0 +1,60 @@
+# ~/.config/ghostty/config
+
+# --- Orthodox Scheme ---
+background = #000000
+foreground = #fdecce
+
+palette = 0=#000000
+palette = 1=#cc0000
+palette = 2=#4e9a06
+palette = 3=#c4a000
+palette = 4=#3465a4
+palette = 5=#75507b
+palette = 6=#a8e3d0
+palette = 7=#d3d7cf
+palette = 8=#555753
+palette = 9=#ef2929
+palette = 10=#8ae234
+palette = 11=#fce94f
+palette = 12=#729fcf
+palette = 13=#ad7fa8
+palette = 14=#66f2d8
+palette = 15=#eeeeec
+
+# --- Background image ---
+background-image = /Users/tommycalvy/Documents/thomas_cole_the_voyage_of_life_1842.jpg
+background-image-opacity = 0.35
+background-image-fit = cover
+
+# --- Cursor ---
+cursor-style = block
+# Shell integration switches to a bar cursor at the prompt; keep the block
+shell-integration-features = no-cursor
+
+# --- Tab bar (GTK only; macOS already hides it with a single tab) ---
+window-show-tab-bar = auto
+
+# --- Pane navigation (ctrl+hjkl) ---
+keybind = ctrl+h=goto_split:left
+keybind = ctrl+l=goto_split:right
+keybind = ctrl+k=goto_split:up
+keybind = ctrl+j=goto_split:down
+
+# --- ctrl+a enters "modify_pane" mode (stays active until you leave it) ---
+keybind = ctrl+a=activate_key_table:modify_pane
+
+keybind = modify_pane/backslash=new_split:right
+keybind = modify_pane/minus=new_split:down
+keybind = modify_pane/h=resize_split:left,10
+keybind = modify_pane/l=resize_split:right,10
+keybind = modify_pane/k=resize_split:up,10
+keybind = modify_pane/j=resize_split:down,10
+keybind = modify_pane/q=close_surface
+
+# ctrl+a, ctrl+a sends a literal ctrl+a and exits the mode
+keybind = modify_pane/ctrl+a=text:\x01
+keybind = chain=deactivate_key_table
+
+# Any other key leaves the mode (like WezTerm's until_unknown)
+keybind = modify_pane/escape=deactivate_key_table
+keybind = modify_pane/catch_all=deactivate_key_table
